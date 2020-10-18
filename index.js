@@ -7,7 +7,8 @@ const path = require('path');
 console.log("Required all packages.")
     // Run Express
 var app = express();
-console.log("App created.")
+console.log('\x1b[36m[✓]Application Started.\x1b[0m');
+
 
 
 // Application config.
@@ -19,20 +20,26 @@ app.set('views', path.join(__dirname, 'views'));
 console.log("Configuration set.")
     // Routing
 app.get('/', function(req, res, next) {
-    console.log('getting /')
     if (config.maintenanceSettings.maintenance === true) {
-        console.log("loaded maint")
+
         res.render('maint', {
 
             title: config.maintenanceSettings.maintenanceTitle,
             text: config.maintenanceSettings.maintenanceText
-
         })
-    } else {
-        console.log("nah fam here i boss")
-        res.render('home', {
+        console.log(`----------------------\n[✓] Rendered Maintenance.\nConnection Details:\nIp Address: '${req.connection.remoteAddress}'\nFamily Type: '${req.connection.remoteFamily}'`)
 
+    } else {
+        res.render('home', {
+            warningEnabled: config.warningSettings.warningEnabled,
+            warningText: config.warningSettings.warningText,
+            warningTitle: config.warningSettings.warningTitle,
+            warningType: config.warningSettings.warningType
         });
+        const forwarded = req.headers['x-forwarded-for']
+        const ip = forwarded ? forwarded.split(/, /)[0] : req.connection.remoteAddress
+        console.log(`----------------------\n\x1b[32m[✓] Rendered Homepage.\x1b[0m\nConnection Details:\nIp Address: \x1b[47m\x1b[30m'${ip}'\x1b[0m\n\nFamily Type: \x1b[47m\x1b[30m'${req.connection.remoteFamily}'\x1b[0m\n----------------------`)
+
     }
 
 });

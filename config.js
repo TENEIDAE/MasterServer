@@ -1,6 +1,6 @@
 module.exports = {
     maintenanceSettings: {
-        maintenance: true,
+        maintenance: false,
         maintenanceTitle: "We are undergoing maintenance.",
         maintenanceText: "We are undergoing some stuff."
     },
@@ -15,7 +15,6 @@ module.exports = {
     },
     siteSettings: {
         enableGames: false,
-        gridType: "10x10"
 
     }
 
