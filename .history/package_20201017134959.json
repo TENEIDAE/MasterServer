@@ -1,0 +1,22 @@
+{
+    "name": "masterserver",
+    "version": "1.0.0",
+    "description": "A server",
+    "main": "index.js",
+    "scripts": {
+        "test": "node index.js"
+    },
+    "keywords": [
+        "server",
+        "nodehill"
+    ],
+    "author": "Shiggy",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.17.1",
+        "helmet": "^4.1.1",
+        "lowdb": "^1.0.0",
+        "morgan": "^1.10.0",
+        "vue": "^2.6.12"
+    }
+}
