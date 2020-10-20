@@ -20,16 +20,7 @@ app.set('views', path.join(__dirname, 'views'));
 console.log("Configuration set.")
     // Routing
 app.get('/', function(req, res, next) {
-    if (config.maintenanceSettings.maintenance === true) {
-
-        res.render('maint', {
-
-            title: config.maintenanceSettings.maintenanceTitle,
-            text: config.maintenanceSettings.maintenanceText
-        })
-        console.log(`----------------------\n[✓] Rendered Maintenance.\nConnection Details:\nIp Address: '${req.connection.remoteAddress}'\nFamily Type: '${req.connection.remoteFamily}'`)
-
-    } else {
+    if (config.maintenanceSettings.maintenance !== true) {
         res.render('home', {
             warningEnabled: config.warningSettings.warningEnabled,
             warningText: config.warningSettings.warningText,
@@ -39,6 +30,15 @@ app.get('/', function(req, res, next) {
         const forwarded = req.headers['x-forwarded-for']
         const ip = forwarded ? forwarded.split(/, /)[0] : req.connection.remoteAddress
         console.log(`----------------------\n\x1b[32m[✓] Rendered Homepage.\x1b[0m\nConnection Details:\nIp Address: \x1b[47m\x1b[30m'${ip}'\x1b[0m\n\nFamily Type: \x1b[47m\x1b[30m'${req.connection.remoteFamily}'\x1b[0m\n----------------------`)
+
+    } else {
+
+        res.render('maint', {
+
+            title: config.maintenanceSettings.maintenanceTitle,
+            text: config.maintenanceSettings.maintenanceText
+        })
+        console.log(`----------------------\n[✓] Rendered Maintenance.\nConnection Details:\nIp Address: '${req.connection.remoteAddress}'\nFamily Type: '${req.connection.remoteFamily}'`)
 
     }
 
